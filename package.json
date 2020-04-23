@@ -1,0 +1,53 @@
+{
+    "name": "magneton",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "start": "react-app-rewired start",
+        "build": "react-app-rewired build",
+        "test": "react-app-rewired test",
+        "eject": "react-scripts eject"
+    },
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "dependencies": {
+        "@testing-library/jest-dom": "^4.2.4",
+        "@testing-library/react": "^9.3.2",
+        "@testing-library/user-event": "^7.1.2",
+        "@types/ali-oss": "^6.0.5",
+        "@types/jest": "^24.0.0",
+        "@types/node": "^12.0.0",
+        "@types/react": "^16.9.0",
+        "@types/react-dom": "^16.9.0",
+        "@types/three": "^0.103.2",
+        "@typescript-eslint/eslint-plugin": "^2.29.0",
+        "@typescript-eslint/parser": "^2.29.0",
+        "ali-oss": "^6.7.0",
+        "antd": "^4.1.4",
+        "babel-plugin-import": "^1.13.0",
+        "customize-cra": "^0.9.1",
+        "eslint": "^6.8.0",
+        "eslint-config-alloy": "^3.7.1",
+        "eslint-plugin-react": "^7.19.0",
+        "react": "^16.13.1",
+        "react-app-rewired": "^2.1.5",
+        "react-dom": "^16.13.1",
+        "react-scripts": "3.4.1",
+        "three": "^0.115.0",
+        "three-trackballcontrols-ts": "^0.2.1",
+        "typescript": "^3.8.3"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    }
+}
