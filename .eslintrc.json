@@ -1,0 +1,14 @@
+{
+  "extends": ["alloy", "alloy/react", "alloy/typescript"],
+  "env": {},
+  "globals": {},
+  "rules": {
+    "@typescript-eslint/no-require-imports": 0,
+    "@typescript-eslint/prefer-optional-chain": 0,
+    "@typescript-eslint/consistent-type-definitions": 0,
+    "@typescript-eslint/explicit-member-accessibility": 0,
+    "@typescript-eslint/no-empty-interface": 0,
+    "react/jsx-no-useless-fragment": 0,
+    "react/jsx-fragments": 0
+  }
+}

@@ -27,3 +27,7 @@ yarn-error.log*
 *.7z
 *.rar
 
+.idea
+.cache
+.tmp
+
