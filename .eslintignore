@@ -1,0 +1,9 @@
+src/registerServiceWorker.js
+src/setupProxy.js
+src/**/__tests__/**
+dist
+build
+config-overrides.js
+**/*.d.ts
+src/models/**
+scripts/*
