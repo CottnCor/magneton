@@ -23,9 +23,9 @@ ReactDOM.render(
       </Header>
       <Content className="site-layout">
         <Breadcrumb style={{ margin: '16px 0' }}>
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
-          <Breadcrumb.Item>List</Breadcrumb.Item>
-          <Breadcrumb.Item>App</Breadcrumb.Item>
+          <Breadcrumb.Item>主页</Breadcrumb.Item>
+          <Breadcrumb.Item>视图</Breadcrumb.Item>
+          <Breadcrumb.Item>孔洞修复</Breadcrumb.Item>
         </Breadcrumb>
         <div className="site-layout-content">
           <div className="site-layout-content-top">
