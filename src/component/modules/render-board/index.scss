@@ -1,5 +1,9 @@
 .render-board {
   height: 100%;
-  padding: 12px;
+  cursor: move;
   background-image: linear-gradient(135deg, #ac8ece, #79589f);
+  &-skeleton {
+    height: 100%;
+    padding: 24px;
+  }
 }

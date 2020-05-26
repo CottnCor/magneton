@@ -2,120 +2,73 @@ import './index.scss';
 
 import React from 'react';
 
-import { Form, Select, InputNumber, Switch, Radio, Slider, Button, Upload, Checkbox, Row, Col } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
-
-const { Option } = Select;
+import { Form, Card, Input, Slider, Button, Row, Col } from 'antd';
+import { SettingTwoTone, LikeTwoTone, ThunderboltTwoTone, ToolTwoTone, CheckCircleFilled } from '@ant-design/icons';
 
 const formItemLayout = {
   labelCol: { span: 6 },
   wrapperCol: { span: 14 }
 };
 
+const cardStyle = {
+  margin: '.6em 0'
+};
+
 const MainConfigurePanel = class extends React.Component {
+  renderTitle(title: string) {
+    return (
+      <p>
+        <SettingTwoTone />
+        &nbsp; {title}
+      </p>
+    );
+  }
+  renderInput(defaultValue: number, min: number) {
+    return <Input type="number" defaultValue={defaultValue} min={min} prefix={<ToolTwoTone />} suffix={<CheckCircleFilled style={{ color: '#ac8ece' }} />} />;
+  }
+  renderSlider(defaultValue: number, step: number, min: number, max: number) {
+    return <Slider tooltipVisible tooltipPlacement="right" defaultValue={defaultValue} step={step} max={max} min={min} />;
+  }
   render() {
     return (
       <div className="main-configure-panel">
         <Form name="validate_other" {...formItemLayout}>
-          <Form.Item label="Plain Text">
-            <span className="ant-form-text">China</span>
-          </Form.Item>
-          <Form.Item name="select" label="Select" hasFeedback rules={[{ required: true, message: 'Please select your country!' }]}>
-            <Select placeholder="Please select a country">
-              <Option value="china">China</Option>
-              <Option value="usa">U.S.A</Option>
-            </Select>
-          </Form.Item>
-          <Form.Item name="select-multiple" label="Select[multiple]" rules={[{ required: true, message: 'Please select your favourite colors!', type: 'array' }]}>
-            <Select mode="multiple" placeholder="Please select favourite colors">
-              <Option value="red">Red</Option>
-              <Option value="green">Green</Option>
-              <Option value="blue">Blue</Option>
-            </Select>
-          </Form.Item>
-          <Form.Item label="InputNumber">
-            <Form.Item name="input-number" noStyle>
-              <InputNumber min={1} max={10} />
+          <Card style={cardStyle} title={this.renderTitle('KNN')} size="small">
+            <Form.Item key="k" name="k" label="K取值">
+              {this.renderSlider(15, 1, 10, 20)}
             </Form.Item>
-            <span className="ant-form-text"> machines</span>
-          </Form.Item>
-          <Form.Item name="switch" label="Switch" valuePropName="checked">
-            <Switch />
-          </Form.Item>
-          <Form.Item name="slider" label="Slider">
-            <Slider
-              marks={{
-                0: 'A',
-                20: 'B',
-                40: 'C',
-                60: 'D',
-                80: 'E',
-                100: 'F'
-              }}
-            />
-          </Form.Item>
-          <Form.Item name="radio-group" label="Radio.Group">
-            <Radio.Group>
-              <Radio value="a">item 1</Radio>
-              <Radio value="b">item 2</Radio>
-              <Radio value="c">item 3</Radio>
-            </Radio.Group>
-          </Form.Item>
-          <Form.Item name="radio-button" label="Radio.Button">
-            <Radio.Group>
-              <Radio.Button value="a">item 1</Radio.Button>
-              <Radio.Button value="b">item 2</Radio.Button>
-              <Radio.Button value="c">item 3</Radio.Button>
-            </Radio.Group>
-          </Form.Item>
-          <Form.Item name="checkbox-group" label="Checkbox.Group">
-            <Checkbox.Group>
-              <Row>
-                <Col span={8}>
-                  <Checkbox value="A" style={{ lineHeight: '32px' }}>
-                    A
-                  </Checkbox>
-                </Col>
-                <Col span={8}>
-                  <Checkbox value="B" style={{ lineHeight: '32px' }} disabled>
-                    B
-                  </Checkbox>
-                </Col>
-                <Col span={8}>
-                  <Checkbox value="C" style={{ lineHeight: '32px' }}>
-                    C
-                  </Checkbox>
-                </Col>
-                <Col span={8}>
-                  <Checkbox value="D" style={{ lineHeight: '32px' }}>
-                    D
-                  </Checkbox>
-                </Col>
-                <Col span={8}>
-                  <Checkbox value="E" style={{ lineHeight: '32px' }}>
-                    E
-                  </Checkbox>
-                </Col>
-                <Col span={8}>
-                  <Checkbox value="F" style={{ lineHeight: '32px' }}>
-                    F
-                  </Checkbox>
-                </Col>
-              </Row>
-            </Checkbox.Group>
-          </Form.Item>
-          <Form.Item name="upload" label="Upload" valuePropName="fileList" extra="long">
-            <Upload name="logo" action="/upload.do" listType="picture">
-              <Button>
-                <UploadOutlined /> Click to upload
+            <Form.Item key="t" name="t" label="调控因子">
+              {this.renderSlider(0.8, 0.1, 0, 1)}
+            </Form.Item>
+          </Card>
+          <Card style={cardStyle} title={this.renderTitle('边界提取')} size="small">
+            <Form.Item key="b" name="b" label="边界点提取阈值">
+              {this.renderSlider(0.8, 0.1, 0.3, 1)}
+            </Form.Item>
+            <Form.Item key="w" name="w" label="微切平面系数">
+              {this.renderInput(100, 0)}
+            </Form.Item>
+            <Form.Item key="c" name="c" label="边界拆分系数">
+              {this.renderSlider(0.00001, 0.00001, 0, 0.001)}
+            </Form.Item>
+          </Card>
+          <Card style={cardStyle} title={this.renderTitle('RBF调整')} size="small">
+            <Form.Item key="r" name="r" label="迭代阈值">
+              {this.renderSlider(0.001, 0.001, 0, 0.01)}
+            </Form.Item>
+          </Card>
+          <Row justify="center" gutter={16}>
+            <Col span={12}>
+              <Button block icon={<LikeTwoTone />} htmlType="submit">
+                刷新
               </Button>
-            </Upload>
-          </Form.Item>
-          <Form.Item wrapperCol={{ span: 12, offset: 6 }}>
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
-          </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Button block icon={<ThunderboltTwoTone />} htmlType="button">
+                重制
+              </Button>
+            </Col>
+          </Row>
         </Form>
       </div>
     );

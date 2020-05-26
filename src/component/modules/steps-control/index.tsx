@@ -26,7 +26,7 @@ const StepsControl = class extends React.Component<IProps, IState> {
     return (
       <Steps className="steps-control" current={current} onChange={this.handleStepChanged} size="small">
         {steps.map((item) => (
-          <Step key={item.title} title={item.title} icon={item.icon} />
+          <Step key={item.key} title={item.title} icon={item.icon} style={{cursor: 'pointer'}}/>
         ))}
       </Steps>
     );
@@ -35,34 +35,34 @@ const StepsControl = class extends React.Component<IProps, IState> {
 
 const steps = [
   {
-    title: '导入',
-    content: '文件导入',
+    key: 'step_1',
+    title: '导入文件',
     icon: <FolderAddTwoTone />
   },
   {
-    title: '散乱点云模型',
-    content: '散乱点云模型',
+    key: 'step_2',
+    title: '孔洞修复',
+    icon: <FolderAddTwoTone />
+  },
+  {
+    key: 'step_3',
+    title: '散乱点云',
     icon: <CloudTwoTone />
   },
   {
-    title: '三角网格模型',
-    content: '三角网格模型',
+    key: 'step_4',
+    title: '三角网格',
     icon: <CrownTwoTone />
   },
   {
-    title: '空洞修复',
-    content: '空洞修复',
+    key: 'step_5',
+    title: '正交投影',
     icon: <BulbTwoTone />
   },
   {
-    title: '导入',
-    content: '文件导入',
+    key: 'step_6',
+    title: '透视投影',
     icon: <FolderAddTwoTone />
-  },
-  {
-    title: '散乱点云模型',
-    content: '散乱点云模型',
-    icon: <CloudTwoTone />
   }
 ];
 

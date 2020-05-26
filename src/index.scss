@@ -39,12 +39,13 @@ body {
           flex-direction: column;
 
           &-top {
-            padding: 18px;
+            padding: 24px;
           }
 
           &-main {
             flex: 1;
             display: flex;
+            overflow: hidden;
 
             &-side {
               padding: 18px;
@@ -54,7 +55,6 @@ body {
 
             &-wapper {
               flex: 1;
-              padding: 12px;
             }
           }
         }

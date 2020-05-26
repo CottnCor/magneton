@@ -1,4 +1,9 @@
 .main-configure-panel {
   max-height: 100%;
   overflow-y: auto;
+  .ant-card-body{
+    .ant-row:last-of-type{
+      margin: 0;
+    }
+  }
 }

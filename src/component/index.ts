@@ -3,4 +3,7 @@ import StepsControl from '@/component/modules/steps-control';
 import MainConfigurePanel from '@/component/modules/main-configure-panel';
 import RenderBoard from '@/component/modules/render-board';
 
-export { TopMenu, StepsControl, MainConfigurePanel, RenderBoard };
+import Points from '@/component/modules/buffer-geometry/points';
+import Lines from '@/component/modules/buffer-geometry/lines';
+
+export { TopMenu, StepsControl, MainConfigurePanel, RenderBoard, Points, Lines };
