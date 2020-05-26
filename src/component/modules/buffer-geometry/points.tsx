@@ -32,8 +32,8 @@ const BufferGeometryPoints = class extends React.Component<IProps, IState> {
     const { data } = this.props;
     const container = this.ref.current;
     if (container) {
-      const { data: points, center, range } = gainPoints(data);
-      this.renderer = new Object3DRenderer<THREE.Points>(points, center, range, container);
+      const points = gainPoints(data);
+      this.renderer = new Object3DRenderer<THREE.Points>(points, container);
       if (this.renderer) {
         this.renderer.do();
       }

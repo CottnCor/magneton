@@ -29,15 +29,15 @@ const BufferGeometryLines = class extends React.Component<IProps, IState> {
   }
 
   componentDidMount() {
-    // const { data } = this.props;
-    // const container = this.ref.current;
-    // if (container) {
-    //   const { data: lins, center } = gainLines(data);
-    //   this.renderer = new Object3DRenderer<THREE.Line>(lins, center, container);
-    //   if (this.renderer) {
-    //     this.renderer.do();
-    //   }
-    // }
+    const { data } = this.props;
+    const container = this.ref.current;
+    if (container) {
+      const lins = gainLines(data);
+      this.renderer = new Object3DRenderer<THREE.Line>(lins, container);
+      if (this.renderer) {
+        this.renderer.do();
+      }
+    }
   }
 
   componentWillUnmount() {

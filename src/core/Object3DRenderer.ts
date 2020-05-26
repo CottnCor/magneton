@@ -4,14 +4,10 @@
 
 import * as THREE from 'three';
 
-import { IPoint, IRange } from '@/model';
-
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 class Object3DRenderer<T extends THREE.Object3D> {
   private data: T;
-  private center: IPoint;
-  private range: IRange;
   private scene: THREE.Scene;
   private container: HTMLElement;
   private renderer: THREE.WebGLRenderer;
@@ -19,16 +15,13 @@ class Object3DRenderer<T extends THREE.Object3D> {
   private controls: OrbitControls | null;
   private animationHandle: number;
 
-  public constructor(data: T, center: IPoint, range: IRange, container: HTMLElement) {
+  public constructor(data: T, container: HTMLElement) {
     this.data = data;
-    this.center = center;
-    this.range = range;
     this.container = container;
     this.scene = new THREE.Scene();
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
     const { clientWidth, clientHeight } = this.container;
-    // this.camera = new THREE.PerspectiveCamera(this.center.z, (clientWidth || 1) / (clientHeight || 1), this.range.z.min, this.range.z.max);
-    this.camera = new THREE.PerspectiveCamera(27, (clientWidth || 1) / (clientHeight || 1), 5, 3500);
+    this.camera = new THREE.PerspectiveCamera(27, (clientWidth || 1) / (clientHeight || 1), 5, 3600);
     this.controls = null;
     this.animationHandle = Number.NaN;
     if (this.data) this.init();
@@ -50,12 +43,9 @@ class Object3DRenderer<T extends THREE.Object3D> {
   }
 
   private init() {
-    // environment setting
-    // this.camera.position.z = this.center.z;
-    this.camera.position.z = 2750;
+    this.camera.position.z = 2700;
     this.scene.background = new THREE.Color(0x001528);
-    // this.scene.fog = new THREE.Fog(0x001528, this.range.z.min, this.range.z.max);
-    this.scene.fog = new THREE.Fog(0x001528, 2000, 3500);
+    this.scene.fog = new THREE.Fog(0x001528, 2400, 3600);
     // render setting
     this.scene.add(this.data);
     const { devicePixelRatio } = window;
@@ -67,11 +57,8 @@ class Object3DRenderer<T extends THREE.Object3D> {
     // controls setting
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
     this.controls.maxPolarAngle = Math.PI;
-    this.controls.center = new THREE.Vector3(this.center.x, this.center.y, this.center.z);
-    // this.controls.minDistance = this.range.z.min;
-    // this.controls.maxDistance = this.range.z.max;
-    this.controls.minDistance = 1000;
-    this.controls.maxDistance = 5000;
+    this.controls.minDistance = 360;
+    this.controls.maxDistance = 36000;
     // event setting
     window.addEventListener('resize', this.handleWindowResize, false);
   }
