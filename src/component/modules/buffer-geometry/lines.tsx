@@ -2,13 +2,17 @@ import './index.scss';
 
 import React from 'react';
 
-import { GainLines } from '@/core/Object3DGenerator';
+import { IPoint } from '@/model';
+
+import { gainLines } from '@/core/Object3DGenerator';
 
 import Object3DRenderer from '@/core/Object3DRenderer';
 
 import * as THREE from 'three';
 
-interface IProps {}
+interface IProps {
+  data: IPoint[];
+}
 
 interface IState {}
 
@@ -25,14 +29,15 @@ const BufferGeometryLines = class extends React.Component<IProps, IState> {
   }
 
   componentDidMount() {
-    const container = this.ref.current;
-    if (container) {
-      const data = GainLines();
-      this.renderer = new Object3DRenderer<THREE.Line>(data, container);
-      if (this.renderer) {
-        this.renderer.do();
-      }
-    }
+    // const { data } = this.props;
+    // const container = this.ref.current;
+    // if (container) {
+    //   const { data: lins, center } = gainLines(data);
+    //   this.renderer = new Object3DRenderer<THREE.Line>(lins, center, container);
+    //   if (this.renderer) {
+    //     this.renderer.do();
+    //   }
+    // }
   }
 
   componentWillUnmount() {

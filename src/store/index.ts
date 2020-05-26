@@ -1,5 +1,3 @@
-export const TopMenuStore = class {};
+import FileStore from '@/store/FileStore';
 
-export const StepsControlStore = class {};
-
-export const MainConfigureStore = class {};
+export default new FileStore();

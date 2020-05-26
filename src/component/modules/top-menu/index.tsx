@@ -2,6 +2,10 @@ import React from 'react';
 
 import { Menu } from 'antd';
 
+import fileStore from '@/store';
+
+import { observer, inject } from 'mobx-react';
+
 import {
   MailFilled,
   FolderFilled,
@@ -30,57 +34,89 @@ interface IState {
   current: string;
 }
 
-const TopMenu = class extends React.Component<{}, IState> {
+@inject('fileStore')
+@observer
+class TopMenu extends React.Component<{}, IState> {
+  ref: React.RefObject<HTMLInputElement>;
   constructor(props: {}) {
     super(props);
+    this.ref = React.createRef();
     this.state = {
-      current: 'file'
+      current: ''
     };
   }
   handleMenuChanged = (current: string) => {
-    this.setState({ current });
+    this.setState({ current }, () => {
+      const input = this.ref.current;
+      if (current === 'file:1' && input) {
+        input.click();
+        this.setState({ current: '' });
+      }
+    });
+  };
+  handleFileChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      const files = Array.from(event.target.files);
+      if (files && files.length > 0) {
+        const file = files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.readAsText(file, 'UTF-8');
+          reader.onload = (e) => {
+            const fileContent = e.target?.result?.toString();
+            if (fileContent) {
+              fileStore.set('');
+              fileStore.set(fileContent);
+            } else fileStore.clear();
+          };
+        }
+      }
+    }
   };
   render() {
     const { current } = this.state;
     return (
-      <Menu theme="dark" onClick={(e) => this.handleMenuChanged(e.key)} selectedKeys={[current]} mode="horizontal">
-        {menu.map((item) => {
-          if (item.sub && item.sub.length > 0) {
-            return (
-              <SubMenu key={item.key} icon={item.icon} title={item.title}>
-                {item.sub.map((subMenu) => {
-                  if (subMenu.sub && subMenu.sub.length > 0) {
-                    return (
-                      <Menu.ItemGroup key={subMenu.key} title={subMenu.title}>
-                        {subMenu.sub.map((sub) => (
-                          <Menu.Item key={sub.key} icon={sub.icon}>
-                            {subMenu.title}
-                          </Menu.Item>
-                        ))}
-                      </Menu.ItemGroup>
-                    );
-                  } else {
-                    return (
-                      <Menu.Item key={subMenu.key} icon={subMenu.icon}>
-                        {subMenu.title}
-                      </Menu.Item>
-                    );
-                  }
-                })}
-              </SubMenu>
-            );
-          } else {
-            return (
-              <Menu.Item key={item.key} icon={item.icon}>
-                {item.title}
-              </Menu.Item>
-            );
-          }
-        })}
-      </Menu>
+      <React.Fragment>
+        <Menu theme="dark" onClick={(e) => this.handleMenuChanged(e.key)} selectedKeys={[current]} mode="horizontal">
+          {menu.map((item) => {
+            if (item.sub && item.sub.length > 0) {
+              return (
+                <SubMenu key={item.key} icon={item.icon} title={item.title}>
+                  {item.sub.map((subMenu) => {
+                    if (subMenu.sub && subMenu.sub.length > 0) {
+                      return (
+                        <Menu.ItemGroup key={subMenu.key} title={subMenu.title}>
+                          {subMenu.sub.map((sub) => (
+                            <Menu.Item key={sub.key} icon={sub.icon}>
+                              {subMenu.title}
+                            </Menu.Item>
+                          ))}
+                        </Menu.ItemGroup>
+                      );
+                    } else {
+                      return (
+                        <Menu.Item key={subMenu.key} icon={subMenu.icon}>
+                          {subMenu.title}
+                        </Menu.Item>
+                      );
+                    }
+                  })}
+                </SubMenu>
+              );
+            } else {
+              return (
+                <Menu.Item key={item.key} icon={item.icon}>
+                  {item.title}
+                </Menu.Item>
+              );
+            }
+          })}
+        </Menu>
+        <input type="file" ref={this.ref} accept="txt" style={{ display: 'none' }} onChange={this.handleFileChanged} />
+      </React.Fragment>
     );
   }
-};
+}
 
 export default TopMenu;
 
@@ -92,7 +128,7 @@ const menu = [
     sub: [
       {
         key: 'file:1',
-        title: '打开',
+        title: '导入',
         icon: <FolderOpenFilled />
       },
       {

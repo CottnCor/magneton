@@ -1,9 +1,12 @@
 .render-board {
   height: 100%;
   cursor: move;
-  background-image: linear-gradient(135deg, #ac8ece, #79589f);
-  &-skeleton {
+  background-image: linear-gradient(to left, #fdfbfb 0%, #ebedee 100%);
+  &-empty {
     height: 100%;
-    padding: 24px;
+    display: flex;
+    .ant-empty {
+      margin: auto;
+    }
   }
 }

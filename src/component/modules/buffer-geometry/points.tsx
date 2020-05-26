@@ -2,13 +2,17 @@ import './index.scss';
 
 import React from 'react';
 
-import { GainPoints } from '@/core/Object3DGenerator';
+import { IPoint } from '@/model';
+
+import { gainPoints } from '@/core/Object3DGenerator';
 
 import Object3DRenderer from '@/core/Object3DRenderer';
 
 import * as THREE from 'three';
 
-interface IProps {}
+interface IProps {
+  data: IPoint[];
+}
 
 interface IState {}
 
@@ -25,10 +29,11 @@ const BufferGeometryPoints = class extends React.Component<IProps, IState> {
   }
 
   componentDidMount() {
+    const { data } = this.props;
     const container = this.ref.current;
     if (container) {
-      const data = GainPoints();
-      this.renderer = new Object3DRenderer<THREE.Points>(data, container);
+      const { data: points, center, range } = gainPoints(data);
+      this.renderer = new Object3DRenderer<THREE.Points>(points, center, range, container);
       if (this.renderer) {
         this.renderer.do();
       }
