@@ -6,7 +6,7 @@ class ControlStore {
   setLoading(busy: boolean) {
     this.busy = busy;
     if (this.busy) {
-      setTimeout(() => this.setLoading(false), 5000);
+      setTimeout(() => this.setLoading(false), 3000);
     }
   }
   @computed get loading() {

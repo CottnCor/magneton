@@ -33,9 +33,9 @@ class TopMenu extends React.Component {
                 if (controlStore.current === viewEnum.points) {
                   return <Points data={this.formatterData(fileStore.content)} />;
                 } else if (controlStore.current === viewEnum.mesh_initial) {
-                  return <Mesh path="../../../data/Initial.obj" />;
+                  return <Mesh path="http://127.0.0.1:8080/mesh_initial.html" />;
                 } else if (controlStore.current === viewEnum.mesh_repaired) {
-                  return <Mesh path="../../../data/Repaired.obj" />;
+                  return <Mesh path="http://127.0.0.1:8080/mesh_repaired.html" />;
                 }
               })()
             )
