@@ -65,7 +65,7 @@ const MainConfigurePanel = class extends React.Component {
             </Col>
             <Col span={12}>
               <Button block icon={<ThunderboltTwoTone />} htmlType="button">
-                重制
+                重置
               </Button>
             </Col>
           </Row>

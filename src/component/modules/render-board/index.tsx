@@ -6,13 +6,17 @@ import { Empty } from 'antd';
 
 import { IPoint } from '@/model';
 
-import { Points, Lines } from '@/component';
+import { Spin } from 'antd';
 
-import fileStore from '@/store';
+import { Points, Mesh } from '@/component';
+
+import { viewEnum } from '@/store/ControlStore';
+
+import { fileStore, controlStore } from '@/store';
 
 import { observer, inject } from 'mobx-react';
 
-@inject('fileStore')
+@inject('fileStore', 'controlStore')
 @observer
 class TopMenu extends React.Component {
   render() {
@@ -20,7 +24,21 @@ class TopMenu extends React.Component {
       <div className="render-board">
         <React.Fragment>
           {fileStore.hasContent ? (
-            <Points data={this.formatterData(fileStore.content)} />
+            controlStore.loading ? (
+              <div className="render-board-spin">
+                <Spin tip="数据处理中..." />
+              </div>
+            ) : (
+              (() => {
+                if (controlStore.current === viewEnum.points) {
+                  return <Points data={this.formatterData(fileStore.content)} />;
+                } else if (controlStore.current === viewEnum.mesh_initial) {
+                  return <Mesh path="../../../data/Initial.obj" />;
+                } else if (controlStore.current === viewEnum.mesh_repaired) {
+                  return <Mesh path="../../../data/Repaired.obj" />;
+                }
+              })()
+            )
           ) : (
             <div className="render-board-empty">
               <Empty description="请先导入数据" />

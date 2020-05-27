@@ -1,6 +1,8 @@
 import React from 'react';
 
-import fileStore from '@/store';
+import { fileStore, controlStore } from '@/store';
+
+import { viewEnum } from '@/store/ControlStore';
 
 import { observer, inject } from 'mobx-react';
 
@@ -14,7 +16,7 @@ interface IState {
   current: number;
 }
 
-@inject('fileStore')
+@inject('fileStore', 'controlStore')
 @observer
 class StepsControl extends React.Component<{}, IState> {
   ref: React.RefObject<HTMLInputElement>;
@@ -29,10 +31,16 @@ class StepsControl extends React.Component<{}, IState> {
     if (current >= 0 && current < steps.length) {
       this.setState({ current }, () => {
         const input = this.ref.current;
-        if (steps[current].key === 'step_1' && input) {
+        if (steps[current].key === 'step:1' && input) {
           input.click();
-          this.setState({ current: -1 });
+        } else if (steps[current].key === 'step:2') {
+          controlStore.setCurrent(viewEnum.mesh_repaired);
+        } else if (steps[current].key === 'step:3') {
+          controlStore.setCurrent(viewEnum.points);
+        } else if (steps[current].key === 'step:4') {
+          controlStore.setCurrent(viewEnum.mesh_initial);
         }
+        this.setState({ current: -1 });
       });
     }
   };
@@ -49,6 +57,7 @@ class StepsControl extends React.Component<{}, IState> {
             if (fileContent) {
               fileStore.set('');
               fileStore.set(fileContent);
+              controlStore.setCurrent(viewEnum.points);
             } else fileStore.clear();
           };
         }
@@ -72,32 +81,32 @@ class StepsControl extends React.Component<{}, IState> {
 
 const steps = [
   {
-    key: 'step_1',
+    key: 'step:1',
     title: '导入文件',
     icon: <FolderAddTwoTone />
   },
   {
-    key: 'step_2',
+    key: 'step:2',
     title: '孔洞修复',
     icon: <FolderAddTwoTone />
   },
   {
-    key: 'step_3',
+    key: 'step:3',
     title: '散乱点云',
     icon: <CloudTwoTone />
   },
   {
-    key: 'step_4',
+    key: 'step:4',
     title: '三角网格',
     icon: <GoldTwoTone />
   },
   {
-    key: 'step_5',
+    key: 'step:5',
     title: '正交投影',
     icon: <AppstoreTwoTone />
   },
   {
-    key: 'step_6',
+    key: 'step:6',
     title: '透视投影',
     icon: <BuildTwoTone />
   }

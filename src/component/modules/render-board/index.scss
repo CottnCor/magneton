@@ -2,10 +2,14 @@
   height: 100%;
   cursor: move;
   background-image: linear-gradient(to left, #fdfbfb 0%, #ebedee 100%);
-  &-empty {
+  &-empty,
+  &-spin {
     height: 100%;
     display: flex;
     .ant-empty {
+      margin: auto;
+    }
+    .ant-spin {
       margin: auto;
     }
   }

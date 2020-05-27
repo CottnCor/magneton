@@ -10,12 +10,12 @@ import { TopMenu, StepsControl, MainConfigurePanel, RenderBoard } from '@/compon
 
 import { Provider } from 'mobx-react';
 
-import fileStore from '@/store';
+import { fileStore, controlStore } from '@/store';
 
 const { Header, Content, Footer } = Layout;
 
 ReactDOM.render(
-  <Provider fileStore={fileStore}>
+  <Provider fileStore={fileStore} controlStore={controlStore}>
     <Layout id="total-wapper">
       <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
         <div className="logo" />

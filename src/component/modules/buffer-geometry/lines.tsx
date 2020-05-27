@@ -2,16 +2,10 @@ import './index.scss';
 
 import React from 'react';
 
-import { IPoint } from '@/model';
-
-import { gainLines } from '@/core/Object3DGenerator';
-
-import Object3DRenderer from '@/core/Object3DRenderer';
-
-import * as THREE from 'three';
+import Object3DLoader from '@/core/Object3DLoader';
 
 interface IProps {
-  data: IPoint[];
+  path: string;
 }
 
 interface IState {}
@@ -19,30 +13,29 @@ interface IState {}
 const BufferGeometryLines = class extends React.Component<IProps, IState> {
   ref: React.RefObject<HTMLDivElement>;
 
-  renderer: Object3DRenderer<THREE.Line> | null;
+  loader: Object3DLoader | null;
 
   constructor(props: IProps) {
     super(props);
     this.state = {};
-    this.renderer = null;
+    this.loader = null;
     this.ref = React.createRef();
   }
 
   componentDidMount() {
-    const { data } = this.props;
+    const { path } = this.props;
     const container = this.ref.current;
-    if (container) {
-      const lins = gainLines(data);
-      this.renderer = new Object3DRenderer<THREE.Line>(lins, container);
-      if (this.renderer) {
-        this.renderer.do();
+    if (path && container) {
+      this.loader = new Object3DLoader(path, container);
+      if (this.loader) {
+        this.loader.do();
       }
     }
   }
 
   componentWillUnmount() {
-    if (this.renderer) {
-      this.renderer.done();
+    if (this.loader) {
+      this.loader.done();
     }
   }
 

@@ -2,7 +2,9 @@ import React from 'react';
 
 import { Menu } from 'antd';
 
-import fileStore from '@/store';
+import { viewEnum } from '@/store/ControlStore';
+
+import { fileStore, controlStore } from '@/store';
 
 import { observer, inject } from 'mobx-react';
 
@@ -34,7 +36,7 @@ interface IState {
   current: string;
 }
 
-@inject('fileStore')
+@inject('fileStore', 'controlStore')
 @observer
 class TopMenu extends React.Component<{}, IState> {
   ref: React.RefObject<HTMLInputElement>;
@@ -50,8 +52,14 @@ class TopMenu extends React.Component<{}, IState> {
       const input = this.ref.current;
       if (current === 'file:1' && input) {
         input.click();
-        this.setState({ current: '' });
+      } else if (current === 'view:1') {
+        controlStore.setCurrent(viewEnum.points);
+      } else if (current === 'view:2') {
+        controlStore.setCurrent(viewEnum.mesh_initial);
+      } else if (current === 'edit:3:2') {
+        controlStore.setCurrent(viewEnum.mesh_repaired);
       }
+      this.setState({ current: '' });
     });
   };
   handleFileChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -67,6 +75,7 @@ class TopMenu extends React.Component<{}, IState> {
             if (fileContent) {
               fileStore.set('');
               fileStore.set(fileContent);
+              controlStore.setCurrent(viewEnum.points);
             } else fileStore.clear();
           };
         }

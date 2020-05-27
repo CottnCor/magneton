@@ -4,7 +4,7 @@
 
 import * as THREE from 'three';
 
-import { IPoint, IRange } from '@/model';
+import { IPoint } from '@/model';
 
 const gainPoints = (points: IPoint[]) => {
   const geometry = new THREE.BufferGeometry();
@@ -29,19 +29,9 @@ const gainPoints = (points: IPoint[]) => {
 };
 
 const gainLines = (points: IPoint[]) => {
-  let limit = 100000;
-  const r = 800;
   const geometry = new THREE.BufferGeometry();
-  const positions = [];
-  const colors = [];
-  while (limit > 0) {
-    const x = Math.random() * r - r / 2;
-    const y = Math.random() * r - r / 2;
-    const z = Math.random() * r - r / 2;
-    positions.push(x, y, z);
-    colors.push(245, 245, 245);
-    limit--;
-  }
+  const positions = [] as number[];
+  const colors = [] as number[];
   geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
   geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
   geometry.computeBoundingSphere();
