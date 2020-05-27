@@ -57,8 +57,6 @@ class Object3DRenderer<T extends THREE.Object3D> {
     // controls setting
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
     this.controls.maxPolarAngle = Math.PI;
-    this.controls.minDistance = 360;
-    this.controls.maxDistance = 36000;
     // event setting
     window.addEventListener('resize', this.handleWindowResize, false);
   }
