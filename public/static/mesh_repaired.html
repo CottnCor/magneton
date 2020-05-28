@@ -28,11 +28,9 @@
         var loader = new PLYLoader();
         loader.load('./repaired.ply', function (geometry) {
           geometry.computeVertexNormals();
-          var material = new THREE.MeshStandardMaterial({
-            color: 0x0055ff,
-            flatShading: true
-          });
-          var mesh = new THREE.Mesh(geometry, material);
+          var wireframeMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true, transparent: true, flatShading: true });
+          var standardMaterial = new THREE.MeshStandardMaterial({ color: 0x0055ff, flatShading: true });
+          var mesh = new THREE.Mesh(geometry, wireframeMaterial);
           mesh.rotation.z = -Math.PI / 2;
           mesh.rotation.x = -Math.PI / 2;
           mesh.scale.multiplyScalar(5);

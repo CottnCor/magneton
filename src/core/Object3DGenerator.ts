@@ -19,7 +19,7 @@ const gainPoints = (points: IPoint[]) => {
     points.forEach((item) => {
       const point = { x: (item.x - center.x) * 3000, y: (item.y - center.y) * 3000, z: (item.z - center.z) * 3000 };
       positions.push(point.x, point.y, point.z);
-      colors.push(245, 245, 245);
+      colors.push(255, 255, 255);
     });
   }
   geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));

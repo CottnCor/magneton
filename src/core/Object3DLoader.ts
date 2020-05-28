@@ -51,8 +51,9 @@ class Object3DRenderer {
       this.path,
       (geometry) => {
         geometry.computeVertexNormals();
-        const material = new THREE.MeshStandardMaterial({ color: 0x0055ff, flatShading: true });
-        const mesh = new THREE.Mesh(geometry, material);
+        const wireframeMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true, transparent: true, flatShading: true });
+        const standardMaterial = new THREE.MeshStandardMaterial({ color: 0x0055ff, flatShading: true });
+        const mesh = new THREE.Mesh(geometry, wireframeMaterial);
         this.scene.add(mesh);
         this.init();
       },
