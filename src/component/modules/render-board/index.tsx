@@ -8,7 +8,7 @@ import { IPoint } from '@/model';
 
 import { Spin } from 'antd';
 
-import { Points, Mesh } from '@/component';
+import { Points, PLYLoader } from '@/component';
 
 import { viewEnum } from '@/store/ControlStore';
 
@@ -30,12 +30,14 @@ class TopMenu extends React.Component {
               </div>
             ) : (
               (() => {
-                if (controlStore.current === viewEnum.points) {
+                if (controlStore.current === viewEnum.points_initial) {
                   return <Points data={this.formatterData(fileStore.content)} />;
+                } else if (controlStore.current === viewEnum.points_repaired) {
+                  return <PLYLoader path="http://127.0.0.1:8080/points_repaired.html" />;
                 } else if (controlStore.current === viewEnum.mesh_initial) {
-                  return <Mesh path="http://127.0.0.1:8080/mesh_initial.html" />;
+                  return <PLYLoader path="http://127.0.0.1:8080/mesh_initial.html" />;
                 } else if (controlStore.current === viewEnum.mesh_repaired) {
-                  return <Mesh path="http://127.0.0.1:8080/mesh_repaired.html" />;
+                  return <PLYLoader path="http://127.0.0.1:8080/mesh_repaired.html" />;
                 }
               })()
             )

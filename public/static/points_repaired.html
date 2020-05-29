@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <link type="text/css" rel="stylesheet" href="./main.css" />
+    <script type="text/javascript" src="./jquery.min.js"></script>
+  </head>
+  <body>
+    <script type="module">
+      import * as THREE from './three.module.js';
+      import { OrbitControls } from './OrbitControls.js';
+
+      var container, controls, camera, cameraTarget, scene, renderer;
+
+      init();
+      animate();
+
+      function init() {
+        container = document.createElement('div');
+        document.body.appendChild(container);
+        camera = new THREE.PerspectiveCamera(27, window.innerWidth / window.innerHeight, 5, 3600);
+        camera.position.z = 2700;
+        scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x001528);
+        scene.fog = new THREE.Fog(0x001528, 2400, 3600);
+        // PLY file
+        var res = $.ajax({ url: '/Repaired.txt', async: false });
+        var data = res.responseText;
+        var points = formatterData(data);
+        var threePoints = gainPoints(points);
+        scene.add(threePoints);
+        // renderer
+        renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.outputEncoding = THREE.sRGBEncoding;
+        container.appendChild(renderer.domElement);
+        // controls setting
+        controls = new OrbitControls(camera, renderer.domElement);
+        controls.maxPolarAngle = Math.PI;
+        // resize
+        window.addEventListener('resize', onWindowResize, false);
+      }
+
+      function gainPoints(points) {
+        var positions = [];
+        var colors = [];
+        var geometry = new THREE.BufferGeometry();
+        var material = new THREE.PointsMaterial({
+          size: 7,
+          vertexColors: true
+        });
+        if (points && points.length > 0) {
+          var center = gainCenter(points);
+          points.forEach((item) => {
+            var point = { x: (item.x - center.x) * 3000, y: (item.y - center.y) * 3000, z: (item.z - center.z) * 3000 };
+            positions.push(point.x, point.y, point.z);
+            colors.push(255, 255, 255);
+          });
+        }
+        geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+        geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+        geometry.computeBoundingSphere();
+        return new THREE.Points(geometry, material);
+      }
+
+      function formatterData(data) {
+        debugger;
+        var points = [];
+        var rows = Array.from(data.trim().split(/\n/));
+        if (rows && rows.length > 0) {
+          rows.forEach((item) => {
+            var row = item.trim().replace(/\s+/g, ' ').split(' ');
+            if (row && row.length === 3) {
+              try {
+                points.push({ x: Number(row[0]), y: Number(row[1]), z: Number(row[2]) });
+              } catch {}
+            }
+          });
+        }
+        return points;
+      }
+
+      function gainCenter(points) {
+        let xSum = 0;
+        let ySum = 0;
+        let zSum = 0;
+        points.forEach((item) => {
+          xSum += item.x;
+          ySum += item.y;
+          zSum += item.z;
+        });
+        return { x: divide(xSum, points.length), y: divide(ySum, points.length), z: divide(zSum, points.length) };
+      }
+
+      function divide(a, b) {
+        return Math.floor((a / b) * 100000) / 100000;
+      }
+
+      function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      }
+
+      function animate() {
+        requestAnimationFrame(animate);
+        render();
+      }
+
+      function render() {
+        renderer.render(scene, camera);
+      }
+    </script>
+  </body>
+</html>

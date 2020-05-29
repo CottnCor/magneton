@@ -2,7 +2,7 @@ import { action, computed, observable } from 'mobx';
 
 class ControlStore {
   @observable busy = false;
-  @observable view = viewEnum.points;
+  @observable view = viewEnum.points_initial;
   @action
   setLoading(busy: boolean) {
     this.busy = busy;
@@ -24,8 +24,10 @@ class ControlStore {
 }
 
 export enum viewEnum {
-  points,
-  lines,
+  points_initial,
+  points_repaired,
+  lines_initial,
+  lines_repaired,
   mesh_initial,
   mesh_repaired
 }

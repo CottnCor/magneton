@@ -7,9 +7,9 @@ import * as THREE from 'three';
 import { IPoint } from '@/model';
 
 const gainPoints = (points: IPoint[]) => {
-  const geometry = new THREE.BufferGeometry();
   const positions = [] as number[];
   const colors = [] as number[];
+  const geometry = new THREE.BufferGeometry();
   const material = new THREE.PointsMaterial({
     size: 7,
     vertexColors: true
@@ -29,9 +29,9 @@ const gainPoints = (points: IPoint[]) => {
 };
 
 const gainLines = (points: IPoint[]) => {
-  const geometry = new THREE.BufferGeometry();
   const positions = [] as number[];
   const colors = [] as number[];
+  const geometry = new THREE.BufferGeometry();
   geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
   geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
   geometry.computeBoundingSphere();

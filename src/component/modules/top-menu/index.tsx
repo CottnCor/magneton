@@ -56,9 +56,11 @@ class TopMenu extends React.Component<{}, IState> {
       if (current === 'file:1' && input) {
         input.click();
       } else if (current === 'view:1') {
-        controlStore.setCurrent(viewEnum.points);
+        controlStore.setCurrent(viewEnum.points_initial);
       } else if (current === 'view:2') {
         controlStore.setCurrent(viewEnum.mesh_initial);
+      } else if (current === 'edit:3:1') {
+        controlStore.setCurrent(viewEnum.points_repaired);
       } else if (current === 'edit:3:2') {
         controlStore.setCurrent(viewEnum.mesh_repaired);
       } else if (current === 'file:2' || current === 'file:3') {
@@ -88,7 +90,7 @@ class TopMenu extends React.Component<{}, IState> {
             if (fileContent) {
               fileStore.set('');
               fileStore.set(fileContent);
-              controlStore.setCurrent(viewEnum.points);
+              controlStore.setCurrent(viewEnum.points_initial);
             } else fileStore.clear();
           };
         }
@@ -110,7 +112,7 @@ class TopMenu extends React.Component<{}, IState> {
                         <Menu.ItemGroup key={subMenu.key} title={subMenu.title}>
                           {subMenu.sub.map((sub) => (
                             <Menu.Item key={sub.key} icon={sub.icon}>
-                              {subMenu.title}
+                              {sub.title}
                             </Menu.Item>
                           ))}
                         </Menu.ItemGroup>

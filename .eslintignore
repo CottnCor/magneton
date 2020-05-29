@@ -3,6 +3,7 @@ src/setupProxy.js
 src/**/__tests__/**
 dist
 build
+public
 config-overrides.js
 **/*.d.ts
 src/models/**

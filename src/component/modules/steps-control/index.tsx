@@ -6,7 +6,7 @@ import { viewEnum } from '@/store/ControlStore';
 
 import { observer, inject } from 'mobx-react';
 
-import { FolderAddTwoTone, CloudTwoTone, GoldTwoTone, AppstoreTwoTone, BuildTwoTone } from '@ant-design/icons';
+import { FolderAddTwoTone, CloudTwoTone, GoldTwoTone, AppstoreTwoTone, BuildTwoTone, BugTwoTone } from '@ant-design/icons';
 
 import { Steps } from 'antd';
 
@@ -34,7 +34,7 @@ class StepsControl extends React.Component<{}, IState> {
         if (steps[current].key === 'step:1' && input) {
           input.click();
         } else if (steps[current].key === 'step:2') {
-          controlStore.setCurrent(viewEnum.points);
+          controlStore.setCurrent(viewEnum.points_repaired);
         } else if (steps[current].key === 'step:3') {
           controlStore.setCurrent(viewEnum.mesh_initial);
         } else if (steps[current].key === 'step:4') {
@@ -57,7 +57,7 @@ class StepsControl extends React.Component<{}, IState> {
             if (fileContent) {
               fileStore.set('');
               fileStore.set(fileContent);
-              controlStore.setCurrent(viewEnum.points);
+              controlStore.setCurrent(viewEnum.points_initial);
             } else fileStore.clear();
           };
         }
@@ -87,7 +87,7 @@ const steps = [
   },
   {
     key: 'step:2',
-    title: '散乱点云',
+    title: '点云孔洞修复',
     icon: <CloudTwoTone />
   },
   {
@@ -97,8 +97,8 @@ const steps = [
   },
   {
     key: 'step:4',
-    title: '孔洞修复',
-    icon: <FolderAddTwoTone />
+    title: '网格孔洞修复',
+    icon: <BugTwoTone />
   },
   {
     key: 'step:5',

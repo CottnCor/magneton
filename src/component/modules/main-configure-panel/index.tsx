@@ -44,7 +44,7 @@ class MainConfigurePanel extends React.Component {
         <Form name="validate_other" {...formItemLayout}>
           <Card style={cardStyle} title={this.renderTitle('KNN')} size="small">
             <Form.Item key="k" name="k" label="K取值">
-              {this.renderSlider(15, 1, 10, 20)}
+              {this.renderSlider(18, 1, 10, 20)}
             </Form.Item>
             <Form.Item key="t" name="t" label="调控因子">
               {this.renderSlider(0.8, 0.1, 0, 1)}
