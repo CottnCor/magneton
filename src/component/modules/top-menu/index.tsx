@@ -47,6 +47,9 @@ class TopMenu extends React.Component<{}, IState> {
       current: ''
     };
   }
+  handleLoading(busy: boolean) {
+    controlStore.setLoading(busy);
+  }
   handleMenuChanged = (current: string) => {
     this.setState({ current }, () => {
       const input = this.ref.current;
@@ -58,6 +61,16 @@ class TopMenu extends React.Component<{}, IState> {
         controlStore.setCurrent(viewEnum.mesh_initial);
       } else if (current === 'edit:3:2') {
         controlStore.setCurrent(viewEnum.mesh_repaired);
+      } else if (current === 'file:2' || current === 'file:3') {
+        if (controlStore.current === viewEnum.mesh_repaired) {
+          const link = document.createElement('a');
+          link.target = '_blank';
+          link.download = 'Repaired.txt';
+          link.href = 'http://127.0.0.1:8080/Repaired.txt';
+          link.click();
+        }
+      } else {
+        this.handleLoading(true);
       }
       this.setState({ current: '' });
     });

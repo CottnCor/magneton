@@ -2,6 +2,7 @@ import { action, computed, observable } from 'mobx';
 
 class ControlStore {
   @observable busy = false;
+  @observable view = viewEnum.points;
   @action
   setLoading(busy: boolean) {
     this.busy = busy;
@@ -12,7 +13,6 @@ class ControlStore {
   @computed get loading() {
     return this.busy;
   }
-  @observable view = viewEnum.points;
   @action
   setCurrent(view: number) {
     this.view = view;

@@ -2,6 +2,10 @@ import './index.scss';
 
 import React from 'react';
 
+import { controlStore } from '@/store';
+
+import { observer, inject } from 'mobx-react';
+
 import { Form, Card, Input, Slider, Button, Row, Col } from 'antd';
 import { SettingTwoTone, LikeTwoTone, ThunderboltTwoTone, ToolTwoTone, CheckCircleFilled } from '@ant-design/icons';
 
@@ -14,7 +18,12 @@ const cardStyle = {
   margin: '.6em 0'
 };
 
-const MainConfigurePanel = class extends React.Component {
+@inject('controlStore')
+@observer
+class MainConfigurePanel extends React.Component {
+  handleLoading(busy: boolean) {
+    controlStore.setLoading(busy);
+  }
   renderTitle(title: string) {
     return (
       <p>
@@ -59,12 +68,12 @@ const MainConfigurePanel = class extends React.Component {
           </Card>
           <Row justify="center" gutter={16}>
             <Col span={12}>
-              <Button block icon={<LikeTwoTone />} htmlType="submit">
+              <Button onClick={() => this.handleLoading(true)} block icon={<LikeTwoTone />} htmlType="submit">
                 刷新
               </Button>
             </Col>
             <Col span={12}>
-              <Button block icon={<ThunderboltTwoTone />} htmlType="button">
+              <Button onClick={() => this.handleLoading(true)} block icon={<ThunderboltTwoTone />} htmlType="button">
                 重置
               </Button>
             </Col>
@@ -73,6 +82,6 @@ const MainConfigurePanel = class extends React.Component {
       </div>
     );
   }
-};
+}
 
 export default MainConfigurePanel;

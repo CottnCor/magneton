@@ -34,11 +34,11 @@ class StepsControl extends React.Component<{}, IState> {
         if (steps[current].key === 'step:1' && input) {
           input.click();
         } else if (steps[current].key === 'step:2') {
-          controlStore.setCurrent(viewEnum.mesh_repaired);
-        } else if (steps[current].key === 'step:3') {
           controlStore.setCurrent(viewEnum.points);
-        } else if (steps[current].key === 'step:4') {
+        } else if (steps[current].key === 'step:3') {
           controlStore.setCurrent(viewEnum.mesh_initial);
+        } else if (steps[current].key === 'step:4') {
+          controlStore.setCurrent(viewEnum.mesh_repaired);
         }
         this.setState({ current: -1 });
       });
@@ -87,18 +87,18 @@ const steps = [
   },
   {
     key: 'step:2',
-    title: '孔洞修复',
-    icon: <FolderAddTwoTone />
-  },
-  {
-    key: 'step:3',
     title: '散乱点云',
     icon: <CloudTwoTone />
   },
   {
-    key: 'step:4',
+    key: 'step:3',
     title: '三角网格',
     icon: <GoldTwoTone />
+  },
+  {
+    key: 'step:4',
+    title: '孔洞修复',
+    icon: <FolderAddTwoTone />
   },
   {
     key: 'step:5',

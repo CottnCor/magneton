@@ -26,7 +26,7 @@ class TopMenu extends React.Component {
           {fileStore.hasContent ? (
             controlStore.loading ? (
               <div className="render-board-spin">
-                <Spin tip="数据处理中..." />
+                <Spin tip="数据计算中..." />
               </div>
             ) : (
               (() => {
