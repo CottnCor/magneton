@@ -10918,9 +10918,9 @@ text-table@0.2.0, text-table@^0.2.0:
   integrity sha1-f17oI66AUgfACvLfSoTsP8+lcLQ=
 
 three@*:
-  version "0.117.0"
-  resolved "https://registry.npm.taobao.org/three/download/three-0.117.0.tgz#43d834d86fa7e0a500e5d6a8a071953498b9a3e5"
-  integrity sha1-Q9g02G+n4KUA5daooHGVNJi5o+U=
+  version "0.126.0"
+  resolved "https://registry.yarnpkg.com/three/-/three-0.126.0.tgz#924818341cd4441ef247e3cbf236f6160b90a216"
+  integrity sha512-/MecvboUefStCkUfXLImoJxthN+FoLPcEP7pz1r1Dd9i8BPGGuj+S1sOPRvW4Z+ViZjP2oWWm1inNC/MT52ybA==
 
 throat@^4.0.0:
   version "4.1.0"
